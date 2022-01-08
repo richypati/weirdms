@@ -7,6 +7,19 @@ plugins {
 	kotlin("plugin.spring") version "1.6.10"
 }
 
+buildscript {
+
+	repositories {
+		mavenCentral()
+		maven(url = "https://repo.spring.io/snapshot")
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.6.2")
+		classpath(kotlin("gradle-plugin"))
+	}
+}
+
 group = "com.weird"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
@@ -16,14 +29,24 @@ repositories {
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web:2.6.2")
+	implementation("org.springframework.boot:spring-boot-starter-jetty")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.kafka:spring-kafka")
+
 	runtimeOnly("org.postgresql:postgresql")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
+
+	configurations {
+		all {
+			exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+		}
+	}
 }
 
 tasks.withType<KotlinCompile> {
