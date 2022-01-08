@@ -24,3 +24,9 @@ hs_err_pid*
 
 #Intellij
 .idea/
+.DS_Store
+
+#gradle
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
