@@ -11,3 +11,6 @@ services:
       - "${WMS_DB_PORT}:5432"
     volumes:
       - ./src/main/resources/db/init:/docker-entrypoint-initdb.d/
+      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+volumes:
+  database-data:
